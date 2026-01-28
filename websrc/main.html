@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eenvoudige Test Pagina</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        h2 {
+            color: #2c3e50;
+            padding-bottom: 8px;
+            margin: 25px 0 15px 0;
+            border-bottom: 2px solid #4b6cb7;
+        }
+        
+        section {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        code {
+            background-color: #f1f1f1;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #c7254e;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        
+        form {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        button {
+            background-color: #4b6cb7;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #3a5999;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+            border-top: 1px solid #ddd;
+        }
+        
+        .highlight {
+            background-color: #fffacd;
+            padding: 10px;
+            border-left: 4px solid #ffeb3b;
+            margin: 15px 0;
+        }
+        
+        .test-box {
+            border: 1px dashed #4b6cb7;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Eenvoudige Test Pagina</h1>
+        <p>Een basis HTML-pagina om verschillende elementen te testen</p>
+    </header>
+    
+    <main>
+        <section id="tekst">
+            <h2>Tekst Voorbeelden</h2>
+            <p>Dit is een gewone paragraaf met wat tekst om de opmaak te testen. <strong>Dit is vetgedrukte tekst</strong> en <em>dit is cursieve tekst</em>.</p>
+            
+            <div class="highlight">
+                <p>Dit is een highlight blok voor belangrijke informatie of notities.</p>
+            </div>
+            
+            <p>Hier is een stukje code: <code>&lt;p&gt;Dit is een paragraaf&lt;/p&gt;</code></p>
+        </section>
+        
+        <section id="lijsten">
+            <h2>Lijsten</h2>
+            <h3>Ongeordende lijst (opsomming)</h3>
+            <ul>
+                <li>Eerste item</li>
+                <li>Tweede item</li>
+                <li>Derde item</li>
+            </ul>
+            
+            <h3>Geordende lijst (genummerd)</h3>
+            <ol>
+                <li>Eerste stap</li>
+                <li>Tweede stap</li>
+                <li>Derde stap</li>
+            </ol>
+        </section>
+        
+        <section id="tabellen">
+            <h2>Tabellen</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Naam</th>
+                        <th>Leeftijd</th>
+                        <th>Stad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Jan Jansen</td>
+                        <td>25</td>
+                        <td>Amsterdam</td>
+                    </tr>
+                    <tr>
+                        <td>Marie Pieters</td>
+                        <td>32</td>
+                        <td>Rotterdam</td>
+                    </tr>
+                    <tr>
+                        <td>Klaas van Dijk</td>
+                        <td>41</td>
+                        <td>Utrecht</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <section id="formulier">
+            <h2>Test Formulier</h2>
+            <p>Vul dit formulier in om formulierelementen te testen:</p>
+            
+            <form id="testForm">
+                <label for="naam">Naam:</label>
+                <input type="text" id="naam" name="naam" placeholder="Vul je naam in">
+                
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" placeholder="voorbeeld@email.com">
+                
+                <label for="land">Land:</label>
+                <select id="land" name="land">
+                    <option value="">Kies een land</option>
+                    <option value="nl">Nederland</option>
+                    <option value="be">België</option>
+                    <option value="de">Duitsland</option>
+                </select>
+                
+                <label for="bericht">Bericht:</label>
+                <textarea id="bericht" name="bericht" rows="4" placeholder="Type hier je bericht..."></textarea>
+                
+                <div class="test-box">
+                    <label>
+                        <input type="checkbox" id="akkoord" name="akkoord">
+                        Ik ga akkoord met de voorwaarden
+                    </label>
+                </div>
+                
+                <button type="submit">Verstuur</button>
+            </form>
+        </section>
+        
+        <section id="test-gebied">
+            <h2>Test Gebied</h2>
+            <p>Dit gebied kun je gebruiken om zelf HTML te testen. Kopieer en plak je eigen code hieronder:</p>
+            <div class="test-box" contenteditable="true">
+                <p>Dit gebied is bewerkbaar. Je kunt hier je eigen HTML testen.</p>
+                <p>Probeer bijvoorbeeld: <strong>&lt;h3&gt;Mijn eigen titel&lt;/h3&gt;</strong></p>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Gemaakt als eenvoudige HTML testpagina</p>
+        <p>Alle HTML-elementen op deze pagina zijn basis elementen die in bijna elke website worden gebruikt.</p>
+    </footer>
+
+    <script>
+        // Eenvoudige JavaScript voor formulierverwerking
+        document.getElementById('testForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const naam = document.getElementById('naam').value;
+            const email = document.getElementById('email').value;
+            
+            if(naam && email) {
+                alert(`Bedankt ${naam}! Je formulier is verzonden. Een kopie wordt gestuurd naar ${email}`);
+                document.getElementById('testForm').reset();
+            } else {
+                alert('Vul a.u.b. tenminste je naam en e-mailadres in');
+            }
+        });
+        
+        // Functie om de bewerkbare zone te resetten
+        function resetTestArea() {
+            const testArea = document.querySelector('[contenteditable="true"]');
+            testArea.innerHTML = '<p>Dit gebied is bewerkbaar. Je kunt hier je eigen HTML testen.</p><p>Probeer bijvoorbeeld: <strong>&lt;h3&gt;Mijn eigen titel&lt;/h3&gt;</strong></p>';
+        }
+    </script>
+</body>
+</html>

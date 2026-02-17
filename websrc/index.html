@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-SCOPE Terminal</title>
+
+<style>
+:root {
+    --bg-dark: #03060a;
+    --neon-blue: #cbe3e3;
+    --neon-light: #ddeeee;
+    --grid: #01070c;
+    --text: #c2f7f3;
+    --accent: #dbe9ea;
+}
+
+body {
+    margin: 0;
+    background: var(--bg-dark);
+    color: var(--text);
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+}
+
+header {
+    text-align: center;
+    padding: 15px;
+    font-size: 22px;
+    letter-spacing: 3px;
+    color: var(--neon-blue);
+    text-shadow: 0 0 8px var(--neon-blue);
+}
+
+.divider {
+    height: 2px;
+    width: 100%;
+    margin: 12px 0;
+    background: var(--neon-blue);
+    box-shadow: 0 0 6px var(--neon-blue), 0 0 12px var(--neon-blue), 0 0 18px var(--neon-light);
+    animation: pulseLine 2s infinite alternate;
+}
+
+@keyframes pulseLine {
+    from {opacity:0.7;}
+    to {opacity:1;}
+}
+
+.container {
+    display: flex;
+    height: calc(100vh - 70px);
+}
+
+.sidebar {
+    width: 300px;
+    background: var(--grid);
+    padding: 16px;
+    border-right: 2px solid var(--neon-blue);
+    box-shadow: 4px 0 12px -4px var(--neon-blue);
+    overflow-y: auto;
+}
+
+.stat {
+    font-size: 14px;
+    margin: 6px 0;
+    white-space: pre-line;
+}
+
+.terminal {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    border-left: 2px solid var(--neon-blue);
+    box-shadow: -4px 0 12px -4px var(--neon-blue);
+    position: relative;
+}
+
+.line {
+    margin: 4px 0;
+}
+
+.input {
+    display: flex;
+    margin-top: 12px;
+}
+
+.input span {
+    color: var(--accent);
+}
+
+input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--neon-light);
+    font-size: 16px;
+    font-family: inherit;
+    margin-left: 6px;
+}
+</style>
+</head>
+<body>
+
+<header>E-SCOPE TERMINAL</header>
+<div class="divider"></div>
+
+<div class="container">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="stat" id="cpu">CPU: 0%</div>
+        <div class="stat" id="ram">RAM: 0%</div>
+        <div class="stat" id="ip">IP: Detecting...</div>
+        <div class="stat" id="uptime">UPTIME: 00:00:00</div>
+        <div class="divider"></div>
+        <div class="stat" id="sun">Sun: Loading...</div>
+        <div class="stat" id="moon">Moon: Loading...</div>
+        <div class="stat" id="mercury">Mercury: Loading...</div>
+        <div class="stat" id="venus">Venus: Loading...</div>
+        <div class="stat" id="mars">Mars: Loading...</div>
+        <div class="stat" id="jupiter">Jupiter: Loading...</div>
+        <div class="stat" id="saturn">Saturn: Loading...</div>
+        <div class="stat" id="uranus">Uranus: Loading...</div>
+        <div class="stat" id="neptune">Neptune: Loading...</div>
+    </div>
+
+    <!-- Terminal -->
+    <div class="terminal" id="terminal">
+        <div class="line">Initializing E-SCOPE...</div>
+        <div class="line">Loading modules...</div>
+        <div class="line">Boot sequence complete.</div>
+
+        <div class="input">
+            <span>&gt;</span>
+            <input type="text" id="cmd" placeholder="Type command..." autofocus>
+        </div>
+    </div>
+
+</div>
+
+<script>
+const lat = 52.64; // Hoorn
+const lon = 5.07;
+
+// Planet + Sun + Moon IDs
+const celestialBodies = ["sun","moon","mercury","venus","mars","jupiter","saturn","uranus","neptune"];
+
+// Update positions from API
+async function updatePositions() {
+    try {
+        const url = `https://api.visibleplanets.dev/v3?latitude=${lat}&longitude=${lon}&showCoords=true&aboveHorizon=false`;
+        const response = await fetch(url);
+        const json = await response.json();
+        const data = json.data || [];
+
+        celestialBodies.forEach(name => {
+            const c = data.find(obj => obj.name.toLowerCase() === name);
+            if(c && c.rightAscension && c.declination) {
+                const ra = c.rightAscension.raw.toFixed(2);
+                const dec = c.declination.raw.toFixed(2);
+                document.getElementById(name).textContent = `${c.name}\nRA: ${ra}°\nDec: ${dec}°`;
+            } else {
+                document.getElementById(name).textContent = `${name.charAt(0).toUpperCase() + name.slice(1)}: Data unavailable`;
+            }
+        });
+
+    } catch(err) {
+        console.error("API error:", err);
+        celestialBodies.forEach(name=>{
+            document.getElementById(name).textContent = "Data unavailable";
+        });
+    }
+}
+
+// System stats
+const cpuEl=document.getElementById("cpu");
+const ramEl=document.getElementById("ram");
+const ipEl=document.getElementById("ip");
+const uptimeEl=document.getElementById("uptime");
+const terminalEl=document.getElementById("terminal");
+const inputEl=document.getElementById("cmd");
+
+let uptime=0, userIP="Unknown";
+
+// Uptime update
+setInterval(()=>{
+    uptime++;
+    uptimeEl.textContent="UPTIME: "+new Date(uptime*1000).toISOString().substr(11,8);
+},1000);
+
+// Fake CPU/RAM
+setInterval(()=>{
+    cpuEl.textContent="CPU: "+Math.floor(Math.random()*60+10)+"%";
+    ramEl.textContent="RAM: "+Math.floor(Math.random()*50+30)+"%";
+},2000);
+
+// Fetch IP
+fetch("https://api.ipify.org?format=json")
+.then(r=>r.json())
+.then(d=>{userIP=d.ip; ipEl.textContent="IP: "+d.ip})
+.catch(()=>ipEl.textContent="IP: Unavailable");
+
+// Initial fetch + repeat
+updatePositions();
+setInterval(updatePositions,10000);
+
+// Terminal input
+inputEl.addEventListener("keydown",(e)=>{
+    if(e.key==="Enter"){
+        const cmd = inputEl.value.trim();
+        const line = document.createElement("div");
+        line.className="line";
+        line.textContent = `${userIP} : ${cmd} : Unknown command`;
+        terminalEl.insertBefore(line, terminalEl.querySelector(".input"));
+        inputEl.value="";
+        terminalEl.scrollTop = terminalEl.scrollHeight;
+    }
+});
+
+// Auto-scroll terminal when content changes
+const observer = new MutationObserver(()=>{
+    terminalEl.scrollTop = terminalEl.scrollHeight;
+});
+observer.observe(terminalEl, { childList:true, subtree:true });
+</script>
+</body>
+</html>

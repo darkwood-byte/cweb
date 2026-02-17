@@ -1,7 +1,5 @@
 #include "main.h"
 
-
-
 // Functie om MIME type te bepalen
 const char* get_mime_type(const char *path) {
     const char *ext = strrchr(path, '.');
